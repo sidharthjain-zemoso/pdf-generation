@@ -1,0 +1,13 @@
+.component > .graph{
+    display: block;
+    padding: 24px 23px;
+    margin-top: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-200);
+    width:890px;
+    height:420px;
+}
+
+.pdf{
+    overflow: scroll;
+}

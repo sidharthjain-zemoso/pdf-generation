@@ -1,0 +1,49 @@
+<table class="table-wrapper" *ngIf="!errorMessage && data.length>0">
+    <thead>
+        <tr class="table-header-content">
+            <th align="left" class="table-header-cell table-cell capitalize" [style.width]="columnWidths[column]*screenWidthFactor+'px'" *ngFor="let column of whiteListColumns;" [title]="column" (click)="announceSortChange({active: column, direction: 'asc'})">
+                <span> {{ column!='Actions' && column!='DetailsBtn'?column:'' }} </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-body-content" (click)="goToDetails(element)" *ngFor="let element of data">
+            <td class="table-body-cell table-cell capitalize" *ngFor="let column of whiteListColumns;" [style.width]="columnWidths[column]*screenWidthFactor+'px'">
+                <div *ngIf="element[column] && element[column].isChip; else menuBtn" [title]="element[column].titleText">
+                    <app-chip [variant]="element[column].chipVariant">
+                        {{ element[column].text }}
+                    </app-chip> 
+                </div>
+                <ng-template #menuBtn>
+                    <div *ngIf="element[column] && element[column].isMenuBtn; else textImageData" style="text-align: center;">
+                        <img class="pointer" width="20px" mat-button [matMenuTriggerFor]="actionMenu" src="/assets/icons/three-dots.svg" alt="">
+                        <mat-menu #actionMenu="matMenu">
+                            <button (click)="handleAction(element, action)" style="min-width: 156px;" *ngFor="let action of element[column].menuItems" mat-menu-item>
+                                <span >{{ action }}</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </ng-template>
+                <ng-template #textImageData>
+                    <div *ngIf="element[column] && (element[column].valueText || element[column].valueText==0); else groupHeading" (click)="handleClick(element, element[column])" [class.pointer]="element[column].link" [title]="element[column].titleText">
+                        <img *ngIf="element[column].imgSrc" style="vertical-align: text-bottom;" src="/assets/icons/{{element[column].imgSrc}}.svg"> 
+                        <span [class.row-title]="column=='Title'" *ngIf="element[column].text || element[column].text==0">{{ element[column].text }} </span>
+                    </div>
+                    <div class="subText" *ngIf="element[column] && element[column].subText">
+                        <app-text classNames="low-emphasis overline" [text]="element[column].subText"></app-text>
+                    </div>
+                </ng-template>
+                <ng-template #groupHeading>
+                    <div *ngIf="element[column] && element[column].isGroupHeading; else noData">
+                        
+                    </div>
+                </ng-template>
+                <ng-template #noData>
+                    <div>
+                        <span>No Data</span>
+                    </div>
+                </ng-template>
+            </td>
+        </tr>
+    </tbody>
+</table>

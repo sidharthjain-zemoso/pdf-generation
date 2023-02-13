@@ -1,0 +1,7 @@
+::ng-deep .apexcharts-toolbar{
+    display: none !important;
+}
+
+#chart{
+    overflow: scroll;
+}

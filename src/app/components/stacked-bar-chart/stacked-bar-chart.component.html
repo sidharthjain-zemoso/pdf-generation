@@ -1,0 +1,21 @@
+<div id="chart">
+  <div [class.loader]="graphData?.data.length==0 && graphData.errorMessage==''"></div>
+  <app-error-message *ngIf="graphData.errorMessage"
+      [selectedValue]="graphData.errorMessage"></app-error-message>
+  <apx-chart
+  *ngIf="graphData?.data.length"
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [dataLabels]="chartOptions.dataLabels"
+    [plotOptions]="chartOptions.plotOptions"
+    [xaxis]="chartOptions.xaxis"
+    [stroke]="chartOptions.stroke"
+    [fill]="chartOptions.fill"
+    [yaxis]="chartOptions.yaxis"
+    [title]="chartOptions.title"
+    [tooltip]="chartOptions.tooltip"
+    [legend]="chartOptions.legend"
+    [colors]="chartOptions.colors"
+    [grid]="chartOptions.grid"
+  ></apx-chart>
+</div>
