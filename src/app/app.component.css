@@ -10,4 +10,32 @@
 
 .pdf{
     overflow: scroll;
+    width: 1000px;
+}
+
+@media print {
+    .component{
+        break-inside: avoid;
+    }
+}
+
+@page{
+    size: A4;
+}
+
+#content {
+    display: table;
+}
+
+#pageFooter {
+    display: table-footer-group;
+    counter-increment: page;
+}
+
+#pageFooter:after {
+    content: counter(page);
+}
+
+.body{
+    display: table-row-group;
 }

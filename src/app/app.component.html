@@ -1,21 +1,24 @@
 <div class="pdf-generate">
-    <button onclick="window.print()"> Download</button>
+    <button (click)="generatePdf()"> Download</button>
 </div>
-<div class="pdf flex flex-col gap-20 padding-16">
-    <div class="graph-img component">
-        <app-multiline-zoom-graph #overallComplianceTrend
-          class="overall-compliance-trend graph"
-          style="height: 100%; width: 100%;"
-              *ngIf="overallComplianceTrendData.length>0"
-              [id]="'TotalAssetsSummaryTrend3'" [showLegend]="true" [yAxisLabel]="'Total Compliance %'"
-              [graphWidth]="700" [graphHeight]="290" [graphLinesData]="overallComplianceTrendData" [singlePercentLine]="true" [showLandingTooltip]="false">
-          </app-multiline-zoom-graph>
-    </div>
-    <div class="graph-img component">
-        <app-stacked-bar-chart class="compliance-by-severity-bar-graph graph" [graphData]="percentBySeverityStackedBarGraphData"></app-stacked-bar-chart>
-    </div>
-    <div class="component">
-        <app-table-for-print [data]="tableData" [whiteListColumns]="whiteListColumns" [columnWidths]="columnWidths"
-                               ></app-table-for-print>
+<div id="content" class="pdf flex flex-col gap-20 padding-16">
+    <div id="pageFooter">Page </div>
+    <div class="body">
+        <div class="graph-img component">
+            <app-multiline-zoom-graph #overallComplianceTrend
+            class="overall-compliance-trend graph"
+            style="height: 100%; width: 100%;"
+                *ngIf="overallComplianceTrendData.length>0"
+                [id]="'TotalAssetsSummaryTrend3'" [showLegend]="true" [yAxisLabel]="'Total Compliance %'"
+                [graphWidth]="700" [graphHeight]="290" [graphLinesData]="overallComplianceTrendData" [singlePercentLine]="true" [showLandingTooltip]="false">
+            </app-multiline-zoom-graph>
+        </div>
+        <div class="graph-img component">
+            <app-stacked-bar-chart class="compliance-by-severity-bar-graph graph" [graphData]="percentBySeverityStackedBarGraphData"></app-stacked-bar-chart>
+        </div>
+        <div class="component">
+            <app-table-for-print [data]="tableData" [whiteListColumns]="whiteListColumns" [columnWidths]="columnWidths"
+                                ></app-table-for-print>
+        </div>
     </div>
 </div>

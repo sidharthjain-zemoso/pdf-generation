@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {jsPDF} from "jspdf"
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'pdf-generation';
   overallComplianceTrendData;
   whiteListColumns;
@@ -15,6 +16,30 @@ export class AppComponent implements OnInit {
     this.overallComplianceTrendData = this.massageTrendGraphData2([]);
     this.whiteListColumns = Object.keys(this.columnWidths);
   }
+
+  ngAfterViewInit() {
+    // this.loadPagedJsPolyfill()
+  }
+
+  generatePdf(){
+    const DATA = document.getElementById("content");
+    console.log(DATA);
+    const doc: jsPDF = new jsPDF("p", "pt", "a4");
+    doc.html(DATA, {
+      callback: (doc) => {
+        doc.output("dataurlnewwindow");
+      }
+    });
+  }
+
+  loadPagedJsPolyfill() {
+        const node = document.createElement('script');
+        node.src = 'https://unpkg.com/pagedjs/dist/paged.polyfill.js';
+        node.type = 'text/javascript';
+        node.async = true;
+        node.charset = 'utf-8';
+        document.getElementsByTagName('head')[0].appendChild(node);
+    }
 
   massageTrendGraphData2(graphData){
     const start = new Date(2021, 0, 1), end = new Date(2022, 11, 11);
